@@ -17,7 +17,7 @@ total = 0
 for i in range(max(crab_pos) + 1):
     for sub in crab_pos:
         diff = abs(sub - i)
-        diff = diff * (diff + 1) / 2            # Use only for part 2
+        diff = diff * (diff + 1) / 2            # Use only for part 2. Comment out for part 1
         total += diff
     if total < best: 
         best = total

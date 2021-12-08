@@ -36,12 +36,11 @@ print("Answer: ", answer)
 # Step 0: EEEVERYTHING below will need to be repeated for every line of the input
 for line in lines:
 # Reset all variables before processing line
-    seg_map = {'a': '', 'b': '', 'c': '', 'd': '', 'e': '', 'f': '', 'g': '',}
-    length_grouping = {2:[], 3:[], 4:[], 5:[], 6:[], 7:[]}
-    digit_representation = {0:"", 1:"", 2:"", 3:"", 4:"", 5:"", 6:"", 7:"", 8:"", 9:""}
-    digits_found = 0
-    output_list = []
-    input_list = []
+    seg_map = {'a': '', 'b': '', 'c': '', 'd': '', 'e': '', 'f': '', 'g': '',}              # Stores the deciphered mapping of letters
+    length_grouping = {2:[], 3:[], 4:[], 5:[], 6:[], 7:[]}                                  # groups ciphered digits by how many segments they have
+    digit_representation = {0:"", 1:"", 2:"", 3:"", 4:"", 5:"", 6:"", 7:"", 8:"", 9:""}     # stores the deciphered full representation of a digit
+    output_list = []                                                                        # Stores output digits strings
+    input_list = []                                                                         # Stores input digit strings
     input_list.append(line.split(" | ")[0].split(' '))
     output_list.append(line.split(" | ")[1].split(' '))
 
