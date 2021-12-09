@@ -56,7 +56,7 @@ for line in lines:
     seg_map['a'] = list(set(digit_representation[7])-set(digit_representation[1]))[0]
 
 # Step 2: using 4 and knowledge of what the 'a' segment is find 9
-# This works because 9 is the only 6-segment digit that is only segment off from the 4 digit with the a segment added
+# This works because 9 is the only 6-segment digit that is only 1 segment off from the 4 digit with the 'a' segment added
 # This also determines what the e segment maps to
     diff = digit_representation[4] + seg_map['a']
     for it, number in enumerate(length_grouping[6]):
