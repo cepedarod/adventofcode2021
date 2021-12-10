@@ -16,12 +16,12 @@ def load_input(input_file, str_or_int):
             lines = [int(number) for number in f.read().splitlines()]
     return lines
 
-# This is a recursive function that returns the size of the basin
+# This is a recursive function that returns the size of a basin
 def size_basin(depth, x, y, lines, checked_coordinates):
-    basin_size = 1
-    checked_coordinates.append((x,y))
+    basin_size = 1                      # If this function is called, this node is part of the basin. hence start at 1
+    checked_coordinates.append((x,y))   # log coordinate to avoid recursion loops
 
-    if int(depth) == 9: return 0    # 9s dont count towards basin
+    if int(depth) == 9: return 0        # 9s dont count towards basin
 
     # Check Left
     if x > 0:
@@ -51,46 +51,46 @@ lines = load_input("input.txt", "str")
 max_x_it = len(lines[0]) - 1
 max_y_it = len(lines) - 1
 sum_of_risk = 0
-checked_coordinates = []
-basins = []
+checked_coordinates = []            # logs what coordinates are already part of a basin
+basins = []                         # Holds the size of all found basins
 
 
 for y, line in enumerate(lines):
     for x, number in enumerate(line):
-        if (x == 0 and y == 0):
+        if (x == 0 and y == 0):                                                         # Top Left Corner
             if int(number) < int(line[x+1]) and int(number) < int(lines[y+1][x]):
                 sum_of_risk += int(number) + 1
                 basins.append(size_basin(number, x, y, lines, checked_coordinates))
-        elif (x == 0 and y == max_y_it):
+        elif (x == 0 and y == max_y_it):                                                # Bottom Left Corner
             if int(number) < int(line[x+1]) and int(number) < int(lines[y-1][x]):
                 sum_of_risk += int(number) + 1
                 basins.append(size_basin(number, x, y, lines, checked_coordinates))
-        elif (x == max_x_it and y == 0):
+        elif (x == max_x_it and y == 0):                                                # Top Right Corner
             if int(number) < int(line[x-1]) and int(number) < int(lines[y+1][x]):
                 sum_of_risk += int(number) + 1
                 basins.append(size_basin(number, x, y, lines, checked_coordinates))
-        elif y == 0:
+        elif y == 0:                                                                    # Top edge
             if int(number) < int(line[x-1]) and int(number) < int(line[x+1]) and int(number) < int(lines[y+1][x]):
                 sum_of_risk += int(number) + 1
                 basins.append(size_basin(number, x, y, lines, checked_coordinates))
-        elif y == max_y_it:
+        elif y == max_y_it:                                                             # Bottom Edge
             if int(number) < int(line[x-1]) and int(number) < int(line[x+1]) and int(number) < int(lines[y-1][x]):
                 sum_of_risk += int(number) + 1
                 basins.append(size_basin(number, x, y, lines, checked_coordinates))
-        elif x == 0:
+        elif x == 0:                                                                    # Left Edge
             if int(number) < int(line[x+1]) and int(number) < int(lines[y-1][x]) and int(number) < int(lines[y+1][x]):
                 sum_of_risk += int(number) + 1
                 basins.append(size_basin(number, x, y, lines, checked_coordinates))
-        elif x == max_x_it:
+        elif x == max_x_it:                                                             # Right Edge
             if int(number) < int(line[x-1]) and int(number) < int(lines[y-1][x]) and int(number) < int(lines[y+1][x]):
                 sum_of_risk += int(number) + 1
                 basins.append(size_basin(number, x, y, lines, checked_coordinates))
-        else:
+        else:                                                                           # All non-edge
             if int(number) < int(line[x-1]) and int(number) < int(line[x+1]) and int(number) < int(lines[y-1][x]) and int(number) < int(lines[y+1][x]):
                 sum_of_risk += int(number) + 1
                 basins.append(size_basin(number, x, y, lines, checked_coordinates))
 
-basins.sort(reverse = True)
+basins.sort(reverse = True)     # Sort list of basin sizes to get the 3 largest in the first 3 elements
 
 print("Answer Part 1: ", sum_of_risk)
 print("Answer Part 2: ", basins[0] * basins[1] * basins[2] )
